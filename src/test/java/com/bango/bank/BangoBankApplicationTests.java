@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BangoBankApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		BangoBankApplication.main(new String[] {});
 	}
 
 }

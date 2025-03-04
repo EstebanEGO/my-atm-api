@@ -13,4 +13,5 @@ public class TransactionRequest {
     private Double amount;
     private String concept;
     private String type;
+    private String customerId;
 }

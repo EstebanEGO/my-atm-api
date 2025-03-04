@@ -56,10 +56,9 @@ public class CustomerServiceImp implements CustomerService {
 
     @Override
     public void updateBalance(Customer customer, TransactionRequest transactionRequest) {
-        Transaction transaction = transactionService.save(transactionRequest, customer);
+        Transaction transaction = transactionService.save(transactionRequest);
         Double amount = transaction.getAmount();
         customer.setBalance(customer.getBalance() + amount);
         customerRepository.save(customer);
     }
-
 }

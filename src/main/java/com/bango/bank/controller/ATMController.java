@@ -62,6 +62,7 @@ public class ATMController extends CommonController {
         if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
             if (customer.getBalance() + transactionRequest.getAmount() >= 0) {
+                transactionRequest.setCustomerId(customerId);
                 customerService.updateBalance(customerOptional.get(), transactionRequest);
                 return ResponseEntity.ok("Transacción realizada con exito");
             }

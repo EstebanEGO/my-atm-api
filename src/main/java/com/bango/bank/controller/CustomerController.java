@@ -35,6 +35,4 @@ public class CustomerController extends CommonController {
         }
         return ResponseEntity.ok().body(customerService.save(customer));
     }
-
-    
 }
