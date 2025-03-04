@@ -1,8 +1,6 @@
 package com.bango.bank.controller;
 
-import static com.bango.bank.util.CommonObjects.getCustomer;
-import static com.bango.bank.util.CommonObjects.getCustomerRequest;
-import static com.bango.bank.util.CommonObjects.getFieldErrors;
+import static com.bango.bank.util.CommonObjects.*;
 
 import java.util.ArrayList;
 import java.util.List;

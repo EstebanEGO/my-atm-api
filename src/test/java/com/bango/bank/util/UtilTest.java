@@ -8,6 +8,7 @@ public class UtilTest {
     @Test
     void generateNumber() {
         Util u = new Util();
+        System.out.println(u);
         int low = 1;
         int high = 2;
         String result = Util.generateNumber(low, high);

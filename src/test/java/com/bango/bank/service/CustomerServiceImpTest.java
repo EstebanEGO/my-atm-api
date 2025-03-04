@@ -1,15 +1,11 @@
 package com.bango.bank.service;
 
-import static com.bango.bank.util.CommonObjects.getCustomer;
-import static com.bango.bank.util.CommonObjects.getCustomerRequest;
-import static com.bango.bank.util.CommonObjects.getTransaction;
-import static com.bango.bank.util.CommonObjects.getTransactionRequest;
+import static com.bango.bank.util.CommonObjects.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
