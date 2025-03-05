@@ -1,10 +1,10 @@
 package com.bango.bank.controller;
 
 import static com.bango.bank.util.CommonObjects.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -18,10 +18,11 @@ import com.bango.bank.dto.CustomerResponse;
 import com.bango.bank.dto.TransactionRequest;
 import com.bango.bank.entities.Customer;
 import com.bango.bank.entities.Transaction;
+import com.bango.bank.exception.FieldsErrorException;
 import com.bango.bank.service.CustomerService;
 import com.bango.bank.service.TransactionService;
 
-public class ATMControllerTest {
+class ATMControllerTest {
 
     CustomerService customerService = Mockito.mock(CustomerService.class);
     TransactionService transactionService = Mockito.mock(TransactionService.class);
@@ -47,7 +48,8 @@ public class ATMControllerTest {
                 .firstname(customer.getFirstname())
                 .lastname(customer.getLastname()).build();
 
-        ResponseEntity<?> response = atmController.validateCard(cardRequest, new InnerCommonControllerTest(false));
+        ResponseEntity<CustomerResponse> response = atmController.validateCard(cardRequest,
+                new InnerCommonController(false));
 
         Assertions.assertEquals(200, response.getStatusCode().value());
         Assertions.assertEquals(customerResponse, response.getBody());
@@ -57,7 +59,7 @@ public class ATMControllerTest {
     void validateCardWithNumber404() {
         CardRequest cardRequest = getCardRequest();
         cardRequest.setNumber("4321");
-        ResponseEntity<?> response = atmController.validateCard(cardRequest, new InnerCommonControllerTest(false));
+        ResponseEntity<?> response = atmController.validateCard(cardRequest, new InnerCommonController(false));
         Assertions.assertEquals(404, response.getStatusCode().value());
     }
 
@@ -65,17 +67,18 @@ public class ATMControllerTest {
     void validateCardWithPin404() {
         CardRequest cardRequest = getCardRequest();
         cardRequest.setPin("21");
-        ResponseEntity<?> response = atmController.validateCard(cardRequest, new InnerCommonControllerTest(false));
+        ResponseEntity<?> response = atmController.validateCard(cardRequest, new InnerCommonController(false));
         Assertions.assertEquals(404, response.getStatusCode().value());
     }
 
     @Test
     void validateCardWithFieldErrors() {
-        Map<String, Object> errors = getFieldErrors();
         CardRequest cardRequest = getCardRequest();
-        ResponseEntity<?> response = atmController.validateCard(cardRequest, new InnerCommonControllerTest(true));
-        Assertions.assertEquals(400, response.getStatusCode().value());
-        Assertions.assertEquals(ResponseEntity.badRequest().body(errors), response);
+        InnerCommonController inner = new InnerCommonController(true);
+        FieldsErrorException fieldsErrorException = assertThrows(FieldsErrorException.class,
+                () -> atmController.validateCard(cardRequest, inner));
+        Assertions.assertTrue(fieldsErrorException.getErrors().size() > 0);
+        Assertions.assertEquals("name", fieldsErrorException.getErrors().get(0).getField());
     }
 
     @Test

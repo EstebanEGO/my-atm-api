@@ -2,10 +2,8 @@ package com.bango.bank.config;
 
 import java.util.Date;
 
-import org.bson.Document;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertCallback;
-import org.springframework.data.mongodb.core.mapping.event.BeforeSaveCallback;
 import org.springframework.stereotype.Component;
 
 import com.bango.bank.entities.Transaction;

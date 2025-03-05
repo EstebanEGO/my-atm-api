@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.bango.bank.config.TransactionCallback;
 import com.bango.bank.entities.Transaction;
 
-@SpringBootTest
+@SpringBootTest(useMainMethod = SpringBootTest.UseMainMethod.ALWAYS)
 class BangoBankApplicationTests {
 
 	@Test
-	void main() {
-		BangoBankApplication.main(new String[] {});
-	}
+    void contextLoads() {
+		//Is empty because is only test
+    }
 
 	@Test
 	void onBeforeConvert() {

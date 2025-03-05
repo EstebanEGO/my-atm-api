@@ -1,6 +1,8 @@
 package com.bango.bank.service;
 
 import static com.bango.bank.util.CommonObjects.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ import com.bango.bank.entities.Customer;
 import com.bango.bank.entities.Transaction;
 import com.bango.bank.repository.CustomerRepository;
 
-public class CustomerServiceImpTest {
+class CustomerServiceImpTest {
 
     CustomerRepository customerRepository = Mockito.mock(CustomerRepository.class);
 
@@ -70,12 +72,15 @@ public class CustomerServiceImpTest {
     void save() {
         Card card = customerServiceImp.save(getCustomerRequest());
 
-        Assertions.assertTrue(card.getNumber().length() == 4);
-        Assertions.assertTrue(card.getPin().length() == 2);
+        Assertions.assertEquals(4, card.getNumber().length());
+        Assertions.assertEquals(2, card.getPin().length());
     }
 
     @Test
     void updateBalance() {
         customerServiceImp.updateBalance(customer, transactionRequest);
+
+        verify(transactionService, times(1)).save(transactionRequest);
+        verify(customerRepository, times(1)).save(customer);
     }
 }

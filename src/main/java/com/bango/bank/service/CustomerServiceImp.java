@@ -22,6 +22,7 @@ public class CustomerServiceImp implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final TransactionService transactionService;
+    private Util util = new Util();
 
     @Override
     public List<Customer> findAll() {
@@ -30,8 +31,8 @@ public class CustomerServiceImp implements CustomerService {
 
     @Override
     public Card save(CustomerRequest customerRequest) {
-        String number = Util.generateNumber(1000, 9999);
-        String pin = Util.generateNumber(10, 99);
+        String number = util.generateNumber(1000, 9999);
+        String pin = util.generateNumber(10, 99);
         Card card = new Card(number, pin, true);
         Customer customer = Customer.builder()
                 .firstname(customerRequest.getFirstname())

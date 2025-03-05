@@ -11,11 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
-public class InnerCommonControllerTest implements BindingResult {
+public class InnerCommonController implements BindingResult {
 
     List<FieldError> list;
 
-    public InnerCommonControllerTest(boolean isError) {
+    public InnerCommonController(boolean isError) {
         list = new ArrayList<>();
         if (isError) {
             FieldError fieldError =  new FieldError("name", "name", "requerido");
@@ -31,8 +31,7 @@ public class InnerCommonControllerTest implements BindingResult {
     @Override
     @Nullable
     public Object getFieldValue(String arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getFieldValue'");
+        return new Object();
     }
 
     @Override
@@ -42,72 +41,61 @@ public class InnerCommonControllerTest implements BindingResult {
 
     @Override
     public String getObjectName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getObjectName'");
+        return "";
     }
 
     @Override
     public void reject(String arg0, @Nullable Object[] arg1, @Nullable String arg2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reject'");
+        //No use this method
     }
 
     @Override
     public void rejectValue(@Nullable String arg0, String arg1, @Nullable Object[] arg2, @Nullable String arg3) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'rejectValue'");
+        //No use this method
     }
 
     @Override
     public void addError(ObjectError error) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addError'");
+        //No use this method
     }
 
     @Override
     @Nullable
     public PropertyEditor findEditor(@Nullable String arg0, @Nullable Class<?> arg1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findEditor'");
+        return null;
     }
 
     @Override
     public Map<String, Object> getModel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getModel'");
+        return null; 
     }
 
     @Override
     @Nullable
     public PropertyEditorRegistry getPropertyEditorRegistry() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPropertyEditorRegistry'");
+        return null;
     }
 
     @Override
     @Nullable
     public Object getRawFieldValue(String arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRawFieldValue'");
+        return new Object();
     }
 
     @Override
     @Nullable
     public Object getTarget() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTarget'");
+        return new Object();
     }
 
     @Override
     public String[] resolveMessageCodes(String errorCode) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resolveMessageCodes'");
+        return new String[] {};
     }
 
     @Override
     public String[] resolveMessageCodes(String errorCode, String field) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resolveMessageCodes'");
+        return new String[] {};
     }
 
     

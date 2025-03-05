@@ -1,0 +1,1 @@
+mvn clean verify sonar:sonar -Dsonar.projectKey=my-atm-api -Dsonar.projectName='my-atm-api' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_d887382c83a0e49488723284780a5d9fa7d7c654

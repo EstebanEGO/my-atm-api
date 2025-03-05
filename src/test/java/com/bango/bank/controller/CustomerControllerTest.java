@@ -1,10 +1,10 @@
 package com.bango.bank.controller;
 
 import static com.bango.bank.util.CommonObjects.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +16,10 @@ import org.springframework.http.ResponseEntity;
 import com.bango.bank.dto.CustomerRequest;
 import com.bango.bank.entities.Card;
 import com.bango.bank.entities.Customer;
+import com.bango.bank.exception.FieldsErrorException;
 import com.bango.bank.service.CustomerService;
 
-public class CustomerControllerTest {
+class CustomerControllerTest {
 
     CustomerService customerService = Mockito.mock(CustomerService.class);
 
@@ -42,25 +43,25 @@ public class CustomerControllerTest {
     @Test
     void index() {
         ResponseEntity<List<Customer>> result = customerController.index();
-        Assertions.assertTrue(result.getStatusCode().value() == 200);
+        Assertions.assertEquals(200, result.getStatusCode().value());
         Assertions.assertEquals(ResponseEntity.ok().body(customers), result);
     }
 
     @Test
     void store() {
         Card card = customer.getCards().get(0);
-        ResponseEntity<?> result = customerController.store(customerRequest, new InnerCommonControllerTest(false));
+        ResponseEntity<?> result = customerController.store(customerRequest, new InnerCommonController(false));
 
         Assertions.assertEquals(ResponseEntity.ok().body(card), result);
-        Assertions.assertTrue(result.getStatusCode().value() == 200);
+        Assertions.assertEquals(200, result.getStatusCode().value());
     }
 
     @Test
     void storeWithFieldErrors() {
-        Map<String, Object> errors = getFieldErrors();
-        ResponseEntity<?> result = customerController.store(customerRequest, new InnerCommonControllerTest(true));
-
-        Assertions.assertEquals(ResponseEntity.badRequest().body(errors), result);
-        Assertions.assertTrue(result.getStatusCode().value() == 400);
+        InnerCommonController inner = new InnerCommonController(true);
+        FieldsErrorException fieldsErrorException = assertThrows(FieldsErrorException.class,
+                () -> customerController.store(customerRequest, inner));
+        Assertions.assertTrue(fieldsErrorException.getErrors().size() > 0);
+        Assertions.assertEquals("name", fieldsErrorException.getErrors().get(0).getField());
     }
 }

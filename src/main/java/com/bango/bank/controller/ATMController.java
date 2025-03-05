@@ -18,6 +18,7 @@ import com.bango.bank.dto.TransactionRequest;
 import com.bango.bank.entities.Card;
 import com.bango.bank.entities.Customer;
 import com.bango.bank.entities.Transaction;
+import com.bango.bank.exception.FieldsErrorException;
 import com.bango.bank.service.CustomerService;
 import com.bango.bank.service.TransactionService;
 
@@ -27,15 +28,15 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/atm")
-public class ATMController extends CommonController {
+public class ATMController {
 
     private final CustomerService customerService;
     private final TransactionService transactionService;
 
     @PostMapping("/validate/card")
-    public ResponseEntity<?> validateCard(@Valid @RequestBody CardRequest cardRequest, BindingResult result) {
+    public ResponseEntity<CustomerResponse> validateCard(@Valid @RequestBody CardRequest cardRequest, BindingResult result) {
         if (result.hasErrors()) {
-            return validator(result);
+            throw new FieldsErrorException(result.getFieldErrors());
         }
 
         Optional<Customer> customerOptional = customerService.findByCardsByNumber(cardRequest.getNumber());
@@ -56,7 +57,7 @@ public class ATMController extends CommonController {
     }
 
     @PostMapping("/customer/{customerId}/transaction")
-    public ResponseEntity<?> transaction(@PathVariable String customerId,
+    public ResponseEntity<String> transaction(@PathVariable String customerId,
             @RequestBody TransactionRequest transactionRequest) {
         Optional<Customer> customerOptional = customerService.findById(customerId);
         if (customerOptional.isPresent()) {

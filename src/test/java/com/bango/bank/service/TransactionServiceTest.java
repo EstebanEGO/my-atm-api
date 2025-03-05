@@ -14,7 +14,7 @@ import com.bango.bank.entities.Transaction;
 import com.bango.bank.repository.TransactionRepository;
 import static com.bango.bank.util.CommonObjects.*;
 
-public class TransactionServiceTest {
+class TransactionServiceTest {
 
     TransactionRepository transactionRepository = Mockito.mock(TransactionRepository.class);
 

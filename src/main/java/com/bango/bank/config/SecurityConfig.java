@@ -1,20 +1,14 @@
 package com.bango.bank.config;
 
 import java.util.Arrays;
-import java.util.Date;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.data.mongodb.core.mapping.event.BeforeSaveCallback;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import com.bango.bank.entities.Transaction;
 
 import lombok.RequiredArgsConstructor;
 

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bango.bank.dto.CustomerRequest;
+import com.bango.bank.entities.Card;
 import com.bango.bank.entities.Customer;
+import com.bango.bank.exception.FieldsErrorException;
 import com.bango.bank.service.CustomerService;
 
 import jakarta.validation.Valid;
@@ -20,7 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/customers")
-public class CustomerController extends CommonController {
+public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
@@ -29,9 +31,9 @@ public class CustomerController extends CommonController {
     }
 
     @PostMapping
-    public ResponseEntity<?> store(@Valid @RequestBody CustomerRequest customer, BindingResult result) {
+    public ResponseEntity<Card> store(@Valid @RequestBody CustomerRequest customer, BindingResult result) {
         if (result.hasErrors()) {
-            return validator(result);
+            throw new FieldsErrorException(result.getFieldErrors());
         }
         return ResponseEntity.ok().body(customerService.save(customer));
     }
